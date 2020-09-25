@@ -4,8 +4,8 @@
 using namespace b; // Indication du namespace que l'on veut utiliser
 
 int main()
-{	
-	auto s = 123.123; // Le compilateur choisit de manière automatique le type de la variable
+{
+	auto s = 123.123; // Le compilateur choisit de maniï¿½re automatique le type de la variable
 	bonjour();
 	int a = 1, b = 2;
 	std::cout << "a=" << a << " ; b=" << b << std::endl;
