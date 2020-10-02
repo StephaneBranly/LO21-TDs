@@ -43,7 +43,7 @@ public:
         std::cout << "destruction " << this << "\n";
     }
 
-    Fraction operator++()
+    Fraction &operator++()
     {
         numerateur += denominateur;
         return *this;
@@ -59,6 +59,20 @@ public:
 Fraction somme(const Fraction &f1, const Fraction &f2);
 Fraction operator+(Fraction const &a, Fraction const &b);
 Fraction operator-(Fraction const &a, Fraction const &b);
-std::ostream &operator<<(std::ostream &out, const Fraction &obj);
+
+inline Fraction &operator--(Fraction &f)
+{
+    f = f - 1;
+    return f;
+}
+inline Fraction operator--(Fraction &f, int)
+{
+    Fraction old = f;
+    f = f - 1;
+    return old;
+}
 
 } // namespace MATH
+
+
+std::ostream &operator<<(std::ostream &out, const MATH::Fraction &obj);
