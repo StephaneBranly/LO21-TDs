@@ -4,6 +4,9 @@ using namespace MATH;
 
 void Fraction::setFraction(int n, int d)
 {
-    numerateur = n;
-    denominateur = d;
+    if (d)
+    {
+        numerateur = n;
+        denominateur = d;
+    }
 }
