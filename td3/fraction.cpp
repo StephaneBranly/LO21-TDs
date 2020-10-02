@@ -2,6 +2,12 @@
 
 namespace MATH
 {
+Fraction::Fraction(int n, int d)
+{
+    std::cout << "construction" << this << "\n";
+    setFraction(n, d);
+};
+
 void Fraction::setFraction(int n, int d)
 {
     numerateur = n;

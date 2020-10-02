@@ -1,24 +1,35 @@
 #pragma once
 #include <iostream>
 
+/*
++_________________________+
+    Fraction
+    ___________
+    - numerateur : int
+    - denominateur : int
+    ___________
+    ___________
+    + setFraction(int n, int d)
+    + getNumerateur() : int
+    + getDenomintaeur() : int
+    + simplification()
+    + somme()
+
++_________________________+
+ */
+
 namespace MATH
 {
 struct Fraction
 {
 
 private:
-    int numerateur = 0;
-    int denominateur = 1;
+    int numerateur;
+    int denominateur;
     void simplification();
 
 public:
-    Fraction(int n, int d)
-    {
-        setFraction(n, d);
-        std::cout << "\nYouhou, fraction creee !";
-    };
-    Fraction(int n) : numerateur(n) { std::cout << "\nYouhou, fraction creee !"; }
-    Fraction() = default;
+    Fraction(int n = 0, int d = 1);
 
     void setFraction(int n, int d);
     int getNumerateur() const { return numerateur; }
@@ -27,9 +38,12 @@ public:
 
     ~Fraction()
     {
-        std::cout << "\nYouhou, fraction detruite !";
+        std::cout << "destruction" << this << "\n";
     }
 };
 
 Fraction somme(const Fraction &f1, const Fraction &f2);
+
+Fraction operator+(Fraction const &a, Fraction const &b) { return somme(a, b); };
+
 } // namespace MATH
