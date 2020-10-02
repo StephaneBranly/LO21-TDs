@@ -47,16 +47,18 @@ public:
     {
         numerateur += denominateur;
         return *this;
-    };                   // préfixe, renvoie une lvalue sur x (après incrémentation) // ++x
-    void operator++(int) // argument int fictif pour indiquer que c'est en post fixe // x++
+    };                       // préfixe, renvoie une lvalue sur x (après incrémentation) // ++x
+    Fraction operator++(int) // argument int fictif pour indiquer que c'est en post fixe // x++
     {
+        Fraction old = *this;
         numerateur += denominateur;
+        return old;
     }
-};
+}; // postfixe, renvoie l'ancienne valeur de x
 
 Fraction somme(const Fraction &f1, const Fraction &f2);
 Fraction operator+(Fraction const &a, Fraction const &b);
-Fraction operator++(Fraction const &a, int); // en tant que fonction postfixe, x++
+Fraction operator-(Fraction const &a, Fraction const &b);
 std::ostream &operator<<(std::ostream &out, const Fraction &obj);
 
 } // namespace MATH

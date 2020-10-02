@@ -79,6 +79,13 @@ Fraction operator+(const Fraction &f1, const Fraction &f2)
     Fraction res(sumNum, prodDen);
     return res;
 }
+Fraction operator-(const Fraction &f1, const Fraction &f2)
+{
+    int sumNum = f1.getNumerateur() * f2.getDenominateur() - f1.getDenominateur() * f2.getNumerateur();
+    int prodDen = f1.getDenominateur() * f2.getDenominateur();
+    Fraction res(sumNum, prodDen);
+    return res;
+}
 Fraction operator++(const Fraction &f1, int)
 {
     Fraction res(f1.getNumerateur() + f1.getDenominateur(), f1.getDenominateur());
