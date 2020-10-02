@@ -9,10 +9,11 @@
     - denominateur : int
     ___________
     ___________
+    + Fraction(in n, int d)
     + setFraction(int n, int d)
     + getNumerateur() : int
     + getDenomintaeur() : int
-    + simplification()
+    - simplification()
     + somme()
 
 +_________________________+
@@ -35,15 +36,15 @@ public:
     int getNumerateur() const { return numerateur; }
     int getDenominateur() const { return denominateur; }
     Fraction somme(const Fraction &f);
+    // Fraction operator+(const Fraction &f);
 
     ~Fraction()
     {
-        std::cout << "destruction" << this << "\n";
+        std::cout << "destruction " << this << "\n";
     }
 };
 
 Fraction somme(const Fraction &f1, const Fraction &f2);
-
-Fraction operator+(Fraction const &a, Fraction const &b) { return somme(a, b); };
+Fraction operator+(Fraction const &a, Fraction const &b);
 
 } // namespace MATH

@@ -4,7 +4,7 @@ namespace MATH
 {
 Fraction::Fraction(int n, int d)
 {
-    std::cout << "construction" << this << "\n";
+    std::cout << "construction " << this << "\n";
     setFraction(n, d);
 };
 
@@ -56,7 +56,23 @@ Fraction Fraction::somme(const Fraction &f)
     return res;
 }
 
+// Fraction Fraction::operator+(const Fraction &f)
+// {
+//     int sumNum = f.numerateur * denominateur + f.denominateur * numerateur;
+//     int prodDen = f.denominateur * denominateur;
+//     Fraction res(sumNum, prodDen);
+//     return res;
+// }
+
 Fraction somme(const Fraction &f1, const Fraction &f2)
+{
+    int sumNum = f1.getNumerateur() * f2.getDenominateur() + f1.getDenominateur() * f2.getNumerateur();
+    int prodDen = f1.getDenominateur() * f2.getDenominateur();
+    Fraction res(sumNum, prodDen);
+    return res;
+}
+
+Fraction operator+(const Fraction &f1, const Fraction &f2)
 {
     int sumNum = f1.getNumerateur() * f2.getDenominateur() + f1.getDenominateur() * f2.getNumerateur();
     int prodDen = f1.getDenominateur() * f2.getDenominateur();
