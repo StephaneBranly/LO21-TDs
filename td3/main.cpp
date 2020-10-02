@@ -15,6 +15,7 @@ int main()
     Fraction f2(1, 6);
     Fraction f3;
     f3 = f1 + f2;
+    cout << f3;
     // Fraction *pf3 = new Fraction(1, 2);
     // Fraction *pf6;
 

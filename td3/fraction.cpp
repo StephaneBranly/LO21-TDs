@@ -79,4 +79,16 @@ Fraction operator+(const Fraction &f1, const Fraction &f2)
     Fraction res(sumNum, prodDen);
     return res;
 }
+Fraction operator++(const Fraction &f1, int)
+{
+    Fraction res(f1.getNumerateur() + f1.getDenominateur(), f1.getDenominateur());
+    return res;
+}
+
+std::ostream &operator<<(std::ostream &out, const Fraction &obj)
+{
+    out << obj.getNumerateur() << "/" << obj.getDenominateur();
+    return out;
+}
+
 } // namespace MATH

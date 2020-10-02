@@ -42,9 +42,21 @@ public:
     {
         std::cout << "destruction " << this << "\n";
     }
+
+    Fraction operator++()
+    {
+        numerateur += denominateur;
+        return *this;
+    };                   // préfixe, renvoie une lvalue sur x (après incrémentation) // ++x
+    void operator++(int) // argument int fictif pour indiquer que c'est en post fixe // x++
+    {
+        numerateur += denominateur;
+    }
 };
 
 Fraction somme(const Fraction &f1, const Fraction &f2);
 Fraction operator+(Fraction const &a, Fraction const &b);
+Fraction operator++(Fraction const &a, int); // en tant que fonction postfixe, x++
+std::ostream &operator<<(std::ostream &out, const Fraction &obj);
 
 } // namespace MATH
