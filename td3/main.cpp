@@ -1,16 +1,32 @@
 #include "fraction.h"
 #include <iostream>
 using namespace MATH;
+using namespace std;
 
+Fraction *myFunction()
+{
+    Fraction fx(7, 8);
+    Fraction *pfy = new Fraction(2, 3);
+    return pfy;
+}
 int main()
 {
-    Fraction f1(6, 2);
-    Fraction f2(6, 2);
-    Fraction f3;
-    // f.setFraction(3, 4);
-    std::cout << "\nnum=" << f1.getNumerateur() << " / den=" << f1.getDenominateur();
-    std::cout << "\nnum=" << f2.getNumerateur() << " / den=" << f2.getDenominateur();
-    std::cout << "\nnum=" << f3.getNumerateur() << " / den=" << f3.getDenominateur();
-
+    Fraction f1(3, 4);
+    Fraction f2(1, 6);
+    Fraction *pf3 = new Fraction(1, 2);
+    cout << "ouverture d’un bloc\n";
+    Fraction *pf6;
+    {
+        Fraction f4(3, 8);
+        Fraction f5(4, 6);
+        pf6 = new Fraction(1, 3);
+    }
+    cout << "fin d’un bloc\n";
+    cout << "debut d’une fonction\n";
+    Fraction *pf7 = myFunction();
+    cout << "fin d’une fonction\n";
+    cout << "desallocations controlee par l’utilisateur :\n";
+    delete pf6;
+    delete pf7;
     return 0;
 }

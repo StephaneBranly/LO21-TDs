@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 namespace MATH
 {
@@ -11,13 +12,24 @@ private:
     void simplification();
 
 public:
-    Fraction(int n, int d) { setFraction(n, d); };
-    Fraction(int n) : numerateur(n) {}
+    Fraction(int n, int d)
+    {
+        setFraction(n, d);
+        std::cout << "\nYouhou, fraction creee !";
+    };
+    Fraction(int n) : numerateur(n) { std::cout << "\nYouhou, fraction creee !"; }
     Fraction() = default;
 
     void setFraction(int n, int d);
     int getNumerateur() const { return numerateur; }
     int getDenominateur() const { return denominateur; }
-    Fraction &somme(Fraction f1, Fraction f2);
+    Fraction somme(const Fraction &f);
+
+    ~Fraction()
+    {
+        std::cout << "\nYouhou, fraction detruite !";
+    }
 };
+
+Fraction somme(const Fraction &f1, const Fraction &f2);
 } // namespace MATH

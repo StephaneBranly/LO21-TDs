@@ -42,14 +42,19 @@ void Fraction::simplification()
     }
 }
 
-Fraction &Fraction::somme(Fraction f1, Fraction f2)
+Fraction Fraction::somme(const Fraction &f)
 {
-    Fraction *f = new Fraction();
-    int sumNum = f1.numerateur * f2.denominateur + f1.denominateur * f2.numerateur;
-    int prodDen = f1.denominateur * f2.denominateur;
-    (*f).setFraction(sumNum, prodDen);
-
-    return (*f);
+    int sumNum = f.numerateur * denominateur + f.denominateur * numerateur;
+    int prodDen = f.denominateur * denominateur;
+    Fraction res(sumNum, prodDen);
+    return res;
 }
 
+Fraction somme(const Fraction &f1, const Fraction &f2)
+{
+    int sumNum = f1.getNumerateur() * f2.getDenominateur() + f1.getDenominateur() * f2.getNumerateur();
+    int prodDen = f1.getDenominateur() * f2.getDenominateur();
+    Fraction res(sumNum, prodDen);
+    return res;
+}
 } // namespace MATH
