@@ -1,4 +1,5 @@
 #include "fraction.h"
+#include <iostream>
 
 namespace MATH
 {
@@ -12,7 +13,7 @@ void Fraction::setFraction(int n, int d)
 {
     numerateur = n;
     if (!d)
-        throw "Erreur, denominateur null";
+        throw FractionException("Erreur, denominateur null"); // déclenchement d'une exception
     denominateur = d;
 
     simplification();
@@ -91,11 +92,10 @@ Fraction operator++(const Fraction &f1, int)
     Fraction res(f1.getNumerateur() + f1.getDenominateur(), f1.getDenominateur());
     return res;
 }
+} // namespace MATH
 
-std::ostream &operator<<(std::ostream &out, const Fraction &obj)
+std::ostream &operator<<(std::ostream &out, const MATH::Fraction &obj)
 {
     out << obj.getNumerateur() << "/" << obj.getDenominateur();
     return out;
 }
-
-} // namespace MATH

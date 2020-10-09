@@ -21,7 +21,18 @@
 
 namespace MATH
 {
-struct Fraction
+class FractionException
+{
+    std::string info;
+
+public:
+    FractionException(const std::string &s) : info(s) {}
+    std::string getInfo() const
+    {
+        return info;
+    }
+};
+class Fraction
 {
 
 private:
@@ -74,5 +85,5 @@ inline Fraction operator--(Fraction &f, int)
 
 } // namespace MATH
 
-
-std::ostream &operator<<(std::ostream &out, const MATH::Fraction &obj);
+std::ostream &
+operator<<(std::ostream &out, const MATH::Fraction &obj);
