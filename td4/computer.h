@@ -42,22 +42,23 @@ public:
 
 class Item
 {
-    Expression *exp;
+    Expression *exp = nullptr;
 
 public:
-    Item() : exp(nullptr){};
-    void setExpression(const Expression &e) { *exp = e; }
+    Item() = default;
+    void setExpression(Expression &e) { exp = &e; }
     Expression &getExpression() { return *exp; };
+    const Expression &getExpression() const { return *exp; };
     void raz() { exp = nullptr; };
 };
 
 class Pile
 {
-    Item *items;
-    size_t nb;
-    size_t nbMax;
-    size_t nbAffiche;
-    std::string message;
+    Item *items = nullptr;
+    size_t nb = 0;
+    size_t nbMax = 0;
+    size_t nbAffiche = 4;
+    std::string message = "";
     void agrandissementCapacite();
 
 public:
@@ -65,12 +66,12 @@ public:
     void affiche() const;
     void push(Expression &e);
     void pop();
-    bool estVide() const;
-    size_t taille() const;
+    bool estVide() const { return nb == 0; };
+    size_t taille() const { return nb; };
     Expression &top() const;
     void setMessage(const std::string &m);
-    std::string getMessage() const;
-    void setNbItemsToAffiche(size_t n);
+    std::string getMessage() const { return message; };
+    void setNbItemsToAffiche(size_t n) { nbAffiche = n; };
 };
 
 } // namespace COMPUTER
