@@ -4,25 +4,35 @@
 
 namespace COMPUTER
 {
+
+class ComputerException
+{
+    std::string info;
+
+public:
+    ComputerException(const std::string &str) : info(str) {}
+    std::string getInfo() const { return info; }
+};
+
 class Expression
 {
     int value;
 
 public:
     Expression(int v) : value(v){};
-    const int getValue() { return value; };
-    const std::string toString() { return to_string(value); }
+    int getValue() const { return value; };
+    std::string toString() const { return std::to_string(value); }
 };
 
 class ExpressionManager
 {
     Expression **exps;
-    size_t nb;
-    size_t nbMax;
+    size_t nb = 0;    // Le nombre d'adresses stockées
+    size_t nbMax = 0; // taille du tableau pointé par exps
     void agrandissementCapacite();
 
 public:
-    ExpressionManager();
+    ExpressionManager() = default; // utilise les initialisateurs par défaut
     Expression &addExpression(int v);
     void removeExpression(Expression &e);
 };
