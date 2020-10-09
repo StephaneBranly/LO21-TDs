@@ -56,4 +56,26 @@ ExpressionManager::~ExpressionManager()
     delete[] exps;      // désallocation d'un tableau de pointeurs
 }
 
+ExpressionManager::ExpressionManager(const ExpressionManager &m) : nbMax(m.nb), nb(m.nb), exps(new Expression *[m.nb])
+{
+    for (size_t i = 0; i < nb; i++)
+        exps[i] = new Expression(*m.exps[i]); // utilisation du constructeur de recopie de Expression
+};
+
+ExpressionManager &ExpressionManager::operator=(const ExpressionManager &m)
+{
+    if (this != &m) // manager = manager ne s'auto détruira pas
+    {
+        this->~ExpressionManager();
+        exps = new Expression *[m.nbMax];
+        nbMax = m.nbMax;
+        nb = m.nb;
+
+        for (size_t i = 0; i < nb; i++)
+            exps[i] = new Expression(*m.exps[i]);
+
+        return *this;
+    }
+};
+
 } // namespace COMPUTER

@@ -36,6 +36,8 @@ public:
     Expression &addExpression(int v);
     void removeExpression(Expression &e);
     ~ExpressionManager();
+    ExpressionManager(const ExpressionManager &e);            // constructeur de recopie
+    ExpressionManager &operator=(const ExpressionManager &e); // opérateur d'affectation
 };
 
 } // namespace COMPUTER
