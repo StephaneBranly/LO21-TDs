@@ -10,16 +10,16 @@ void ExpressionManager::agrandissementCapacite()
     // => recopier les adresses dans le nouveau tableau
     // => désallouer l'ancien tableau
     // => le nouveau tableau devient le tableau courant
-    nbMax++;
+    nbMax = (nbMax + 1) * 2;
 
-    Expression **newTab = new Expression *[nbMax];
-    for (int i = 0; i < nbMax - 1; i++)
+    auto newTab = new Expression *[nbMax];
+    for (size_t i = 0; i < nb; i++)
     {
         newTab[i] = exps[i];
     }
-
-    delete exps;
+    auto old = exps;
     exps = newTab;
+    delete[] old;
 }
 
 Expression &ExpressionManager::addExpression(int v)
@@ -32,7 +32,21 @@ Expression &ExpressionManager::addExpression(int v)
 
 void ExpressionManager::removeExpression(Expression &e)
 {
+    size_t i = 0;
     // retirer l'adresse &e du tableau
+    while (i < nb && exps[i] != &e)
+        i++;
+    if (i == nb)
+        throw ComputerException("Expression inexistante");
+
+    delete exps[i]; // on désalloue l'objet expression pointé
+    nb--;
+    // suppression du pointer
+    while (i < nb)
+    {
+        exps[i] = exps[i + 1];
+        i++;
+    }
 }
 
 } // namespace COMPUTER
