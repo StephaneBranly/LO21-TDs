@@ -73,9 +73,8 @@ ExpressionManager &ExpressionManager::operator=(const ExpressionManager &m)
 
         for (size_t i = 0; i < nb; i++)
             exps[i] = new Expression(*m.exps[i]);
-
-        return *this;
     }
+    return *this;
 };
 
 } // namespace COMPUTER

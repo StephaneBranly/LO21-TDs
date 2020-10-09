@@ -40,4 +40,15 @@ public:
     ExpressionManager &operator=(const ExpressionManager &e); // opérateur d'affectation
 };
 
+class Item
+{
+    Expression *exp;
+
+public:
+    Item() : exp(nullptr){};
+    void setExpression(const Expression &e) { *exp = e; }
+    Expression &getExpression() { return *exp; };
+    void raz() { exp = nullptr; };
+};
+
 } // namespace COMPUTER
