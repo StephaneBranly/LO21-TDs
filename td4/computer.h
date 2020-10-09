@@ -35,6 +35,7 @@ public:
     ExpressionManager() = default; // utilise les initialisateurs par défaut
     Expression &addExpression(int v);
     void removeExpression(Expression &e);
+    ~ExpressionManager();
 };
 
 } // namespace COMPUTER

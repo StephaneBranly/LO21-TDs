@@ -49,4 +49,11 @@ void ExpressionManager::removeExpression(Expression &e)
     }
 }
 
+ExpressionManager::~ExpressionManager()
+{
+    for (size_t i = 0; i < nb; i++)
+        delete exps[i]; // désallocation d'un objet
+    delete[] exps;      // désallocation d'un tableau de pointeurs
+}
+
 } // namespace COMPUTER
