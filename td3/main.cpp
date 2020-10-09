@@ -11,15 +11,24 @@ Fraction *myFunction()
 }
 int main()
 {
-    Fraction f1(3, 4);
-    Fraction f2(1, 6);
-    Fraction f3;
-    f3 = f1 + f2;
-    cout << "\n"
-         << f3;
-    f3++;
-    cout << "\n"
-         << f3--;
+    try
+    {
+        Fraction f1(3, 4);
+        Fraction f2(1, 6);
+        Fraction f3;
+        f3 = f1 + f2;
+        cout
+            << "\n"
+            << f3;
+        f3++;
+        cout << "\n"
+             << f3--;
+        Fraction f4(1, 0);
+    }
+    catch (const FractionException &e) // Catch des éventuelles erreurs
+    {
+        cout << e.getInfo() << "\n";
+    }
 
     // Fraction *pf3 = new Fraction(1, 2);
     // Fraction *pf6;
