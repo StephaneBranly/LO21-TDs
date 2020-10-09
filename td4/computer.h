@@ -51,4 +51,26 @@ public:
     void raz() { exp = nullptr; };
 };
 
+class Pile
+{
+    Item *items;
+    size_t nb;
+    size_t nbMax;
+    size_t nbAffiche;
+    std::string message;
+    void agrandissementCapacite();
+
+public:
+    Pile();
+    void affiche() const;
+    void push(Expression &e);
+    void pop();
+    bool estVide() const;
+    size_t taille() const;
+    Expression &top() const;
+    void setMessage(const std::string &m);
+    std::string getMessage() const;
+    void setNbItemsToAffiche(size_t n);
+};
+
 } // namespace COMPUTER
