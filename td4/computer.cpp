@@ -21,15 +21,29 @@ namespace COMPUTER
         auto old = exps;
         exps = newTab;
         delete[] old;
-    }
+    };
 
+    ExpressionManager& ExpressionManager::getInstance()
+    {
+        if (hand.instance == nullptr)
+            hand.instance = new ExpressionManager; // seul objet créé
+        return *hand.instance;
+        //static ExpressionManager singleton;
+        //return singleton;
+    };
+
+
+    void ExpressionManager::libererInstance()
+    {
+        delete hand.instance; hand.instance = nullptr;
+    };
     Expression& ExpressionManager::addExpression(int v)
     {
         if (nb == nbMax)
             agrandissementCapacite();
         exps[nb++] = new Expression(v);
         return *exps[nb - 1];
-    }
+    };
 
     void ExpressionManager::removeExpression(Expression& e)
     {
@@ -48,22 +62,23 @@ namespace COMPUTER
             exps[i] = exps[i + 1];
             i++;
         }
-    }
+    };
 
     ExpressionManager::~ExpressionManager()
     {
         for (size_t i = 0; i < nb; i++)
             delete exps[i]; // désallocation d'un objet
         delete[] exps;      // désallocation d'un tableau de pointeurs
-    }
+    };
 
-    ExpressionManager::ExpressionManager(const ExpressionManager& m) : nbMax(m.nb), nb(m.nb), exps(new Expression* [m.nb])
+    /*ExpressionManager::ExpressionManager(const ExpressionManager& m) : nbMax(m.nb), nb(m.nb), exps(new Expression* [m.nb])
     {
         for (size_t i = 0; i < nb; i++)
             exps[i] = new Expression(*m.exps[i]); // utilisation du constructeur de recopie de Expression
     };
+    */
 
-    ExpressionManager& ExpressionManager::operator=(const ExpressionManager& m)
+   /* ExpressionManager& ExpressionManager::operator=(const ExpressionManager& m)
     {
         if (this != &m) // manager = manager ne s'auto détruira pas
         {
@@ -77,7 +92,7 @@ namespace COMPUTER
         }
         return *this;
     };
-
+    */
 
     void Pile::agrandissementCapacite()
     {

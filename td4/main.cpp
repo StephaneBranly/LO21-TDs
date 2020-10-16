@@ -20,7 +20,13 @@ int main()
      // On ne peut pas définir des tableaux d'objects d'Expression sans fournir d'initialisateur
      // Expression *tabpt[5];
 
-    ExpressionManager expMng;
+    ExpressionManager& expMng = ExpressionManager::getInstance();
+
+    for (ExpressionManager::Iterator it = expMng.getIterator(); !it.isDone(); it.next()) 
+    {
+        std::cout << it.current().getValue() << "\n"; 
+    }
+
     Pile expAff;
     Controleur controleur(expMng, expAff);
     expAff.setMessage("Bienvenue");
