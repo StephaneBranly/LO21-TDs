@@ -5,6 +5,7 @@ using namespace COMPUTER;
 
 int main()
 {
+   /*
     cout << "Hello world";
 
     ExpressionManager manager;
@@ -14,9 +15,16 @@ int main()
     Expression &e4 = manager.addExpression(2);
 
     manager.removeExpression(e2);
+    */
 
     // On ne peut pas définir des tableaux d'objects d'Expression sans fournir d'initialisateur
-    Expression *tabpt[5];
+    // Expression *tabpt[5];
+
+    ExpressionManager expMng;
+    Pile expAff;
+    Controleur controleur(expMng,expAff);
+    expAff.setMessage("Bienvenue");
+    controleur.executer();
 
     return 0;
 };

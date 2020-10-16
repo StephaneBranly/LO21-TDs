@@ -1,5 +1,6 @@
 #include "computer.h"
 #include <iostream>
+#include <algorithm>
 
 namespace COMPUTER
 {
@@ -77,4 +78,94 @@ ExpressionManager &ExpressionManager::operator=(const ExpressionManager &m)
     return *this;
 };
 
+
+ void Pile::agrandissementCapacite()
+ {
+     Item* newtab = new Item[(nbMax+1)*2];
+     for (size_t i=0; i < nb; i++) newtab[i] = items[i];
+     Item* old = items;
+     items = newtab;
+     nbMax = (nbMax +1)*2;
+     delete[] old; // il vaut mieux faire le delete en dernier sur une copie de pointeur afin d'éviter une exception
+ };
+
+ void Pile::affiche() const
+ {
+     using namespace std;
+    cout <<  "**********************\n";
+    cout <<"*>" << message << "\n";
+
+    // Indice du 1er element affiche
+    size_t i = min(nbAffiche, nb);
+    while(i > 0)
+    {
+        i--;
+        cout << items[nb-i].getExpression().toString() << "\n";
+
+    }
+    cout <<  "**********************\n";
+
+
+ };
+
+
+ void Controleur::executer()
+ {
+     using namespace std;
+    std::string c; // commande courante a executer
+    do
+    {
+        expAff.affiche();
+        std::cout << "?-";
+        std::cin >> c;
+        if(c!='Q' && c!='q') commande(c);
+    } while (c!='Q' && c!='q');
+    std::cout << "\n Controleur quitte";
+ };
+
+ void Controleur::commande(const std::string& c)
+ {
+     bool unNb = true;
+     int nb;
+     try {
+        nb = stoi(c);
+     }
+     catch (...) {
+        unNb = false; // ce n'est pas un nombre si stoi renvoie une exception
+     }
+    if(unNb) // cas ou on a un nombre
+    {
+        expAff.push(expMng.addExpression(nb));
+    }
+    else // cas ou c'est un p-e opérateur
+    {
+        if(c=='+' || c=='-' || c=='*' || c=='/') // cas ou on a un opérateur
+        {
+            if(expAff.taille() >=2 )
+            {
+                int v2=expAff.top().getValue();
+                expAff.pop();
+                int v1=expAff.top().getValue();
+                expAff.pop();
+
+                int res=0;
+                if(c=='+') res= v1 + v2;
+                if(c=='-') res= v1 - v2;
+                if(c=='*') res= v1 * v2;
+                if(c=='/') res= v1 / v2;
+                expAff.push(expMng.addExpression(res));
+            }
+            else
+            {
+                expAff.setMessage("Erreur : pas assez d'arguments sur la pile");
+            }
+        }
+        else
+        {
+            expAff.setMessage("Erreur : commande inconnue");
+        }
+    }
+ };
 } // namespace COMPUTER
+
+
