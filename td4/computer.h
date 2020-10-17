@@ -17,9 +17,13 @@ public:
 class Expression
 {
     int value;
+    ~Expression() = default;
+    Expression(const Expression &) = delete;
+    Expression(int v) : value(v){};
+    Expression &operator=(const Expression &) = default;
+    friend class ExpressionManager;
 
 public:
-    Expression(int v) : value(v){};
     int getValue() const { return value; };
     std::string toString() const { return std::to_string(value); }
 };
@@ -27,17 +31,93 @@ public:
 class ExpressionManager
 {
     Expression **exps;
-    size_t nb = 0;    // Le nombre d'adresses stockées
-    size_t nbMax = 0; // taille du tableau pointé par exps
+    size_t nb = 0;    // Le nombre d'adresses stock�es
+    size_t nbMax = 0; // taille du tableau point� par exps
     void agrandissementCapacite();
 
-public:
-    ExpressionManager() = default; // utilise les initialisateurs par défaut
-    Expression &addExpression(int v);
-    void removeExpression(Expression &e);
+    ExpressionManager() = default; // utilise les initialisateurs par d�faut
     ~ExpressionManager();
-    ExpressionManager(const ExpressionManager &e);            // constructeur de recopie
-    ExpressionManager &operator=(const ExpressionManager &e); // opérateur d'affectation
+    ExpressionManager(const ExpressionManager &e) = delete;            // constructeur de recopie
+    ExpressionManager &operator=(const ExpressionManager &e) = delete; // op�rateur d'affectation
+
+    struct Handler
+    {
+        ExpressionManager *instance = nullptr;
+        ~Handler() { delete instance; }
+    };
+    static Handler hand;
+
+public:
+    class const_iterator
+    {
+        Expression **cur = nullptr;
+        Expression **fin = nullptr;
+        const_iterator(Expression **c, Expression **f) : cur(c), fin(f){};
+        friend class ExpressionManager; // pour que ExpressionManager puisse avoir acc�s � la partie priv�e de It�rator
+    public:
+        const_iterator() = default;
+        const Expression &operator*() const { return **cur; }
+        const_iterator &operator++()
+        {
+            if (cur == fin)
+                throw ComputerException("Incrementation pointeur non valide");
+            cur++;
+            return *this;
+        }
+        bool operator!=(const const_iterator &i) const { return cur != i.cur; }
+    };
+    const_iterator cbegin() { return const_iterator(exps, exps + nb); }
+    const_iterator cend() { return const_iterator(exps + nb, exps + nb); }
+
+    class iterator
+    {
+        Expression **cur = nullptr;
+        Expression **fin = nullptr;
+        iterator(Expression **c, Expression **f) : cur(c), fin(f){};
+        friend class ExpressionManager; // pour que ExpressionManager puisse avoir acc�s � la partie priv�e de It�rator
+    public:
+        iterator() = default;
+        Expression &operator*() { return **cur; }
+        iterator &operator++()
+        {
+            if (cur == fin)
+                throw ComputerException("Incrementation pointeur non valide");
+            cur++;
+            return *this;
+        }
+        bool operator!=(const iterator &i) { return cur != i.cur; }
+    };
+    iterator begin() { return iterator(exps, exps + nb); }
+    iterator end() { return iterator(exps + nb, exps + nb); }
+
+    class Iterator
+    {
+        Expression **cur = nullptr; // adresse de l'objet courant
+        Expression **fin = nullptr; // adresse de fin
+        Iterator(Expression **c, Expression **f) : cur(c), fin(f){};
+        friend class ExpressionManager; // pour que ExpressionManager puisse avoir acc�s � la partie priv�e de It�rator
+    public:
+        Iterator() = default;
+        Expression &current() { return **cur; }; // m�thode const car ne modifie pas les attributs
+        void next()
+        {
+            if (cur == fin)
+                throw ComputerException("Incrementation pointeur non valide");
+            cur++;
+        };
+        bool isDone() const
+        { // m�thode const car ne modifie pas les attributs
+            return cur == fin;
+        };
+    };
+
+    Iterator getIterator() { return Iterator(exps, exps + nb); };
+    iterator getIterator2() { return iterator(exps, exps + nb); };
+    const_iterator cgetIterator() { return const_iterator(exps, exps + nb); };
+    void removeExpression(Expression &e);
+    Expression &addExpression(int v);
+    static ExpressionManager &getInstance();
+    static void libererInstance();
 };
 
 class Item
@@ -62,16 +142,48 @@ class Pile
     void agrandissementCapacite();
 
 public:
-    Pile();
+    Pile() = default;
     void affiche() const;
-    void push(Expression &e);
-    void pop();
+    void push(Expression &e)
+    {
+        if (nb == nbMax)
+            agrandissementCapacite();
+        items[nb++].setExpression(e);
+    };
+    void pop()
+    {
+        if (nb == 0)
+            ComputerException("Pop sur une pile vide");
+        items[--nb].raz();
+    };
     bool estVide() const { return nb == 0; };
     size_t taille() const { return nb; };
-    Expression &top() const;
-    void setMessage(const std::string &m);
+    Expression &top() const
+    {
+        if (nb == 0)
+            ComputerException("Pile vide");
+        return items[nb - 1].getExpression();
+    };
+    void setMessage(const std::string &m) { message = m; }
     std::string getMessage() const { return message; };
     void setNbItemsToAffiche(size_t n) { nbAffiche = n; };
+
+    ~Pile()
+    {
+        delete[] items; // d�sallocation du tableau d'objets
+        // ce n'est pas � la pile de g�rer le cycle de vie des expressions point�es par des items
+    }
+};
+
+class Controleur
+{
+    ExpressionManager &expMng;
+    Pile &expAff;
+
+public:
+    Controleur(ExpressionManager &m, Pile &v) : expMng(m), expAff(v) {}
+    void commande(const std::string &c);
+    void executer();
 };
 
 } // namespace COMPUTER
