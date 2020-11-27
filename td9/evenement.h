@@ -11,10 +11,10 @@ namespace TIME{
         std::string sujet;
     public:
         Evt1j(const Date& d,const std::string& s):date(d),sujet(s){  std::cout << "\nConstruction Evt1j : " << this << "\n";}
-         ~Evt1j(){ std::cout << "\nDestruction Evt1j : " << this << "\n";}
+        virtual ~Evt1j(){ std::cout << "\nDestruction Evt1j : " << this << "\n";}
         const std::string& getDescription() const{return sujet; }
         const Date& getDate() const {return date; }
-        void afficher(std::ostream& f= std::cout) const{
+        virtual void afficher(std::ostream& f= std::cout) const{
             f<<"*****Evt********"<<"\n"<<"Date="<<date<<" sujet="<<sujet<<"\n";
         }
     };
