@@ -9,8 +9,7 @@ class GraphException :public exception
 public:
     GraphException(const string& i) noexcept :info(i){}
     virtual~GraphException() noexcept {}
-    const char* what() const noexcept {return info.c_str();
-                                      }
+    const char* what() const noexcept {return info.c_str();}
 };
 
 
@@ -19,15 +18,14 @@ public:
 #include<iostream>
 #include<string>
 
-using namespace std;
 class Graph {
-    vector<list<unsigned int> > adj;
+    vector<list<unsigned int>> adj;
     string name;
 public:
-    Graph(const string& n,unsigned int nb);
-    const string& getName() const;
-    unsigned int getNbVertices() const;
-    unsigned int getNbEdges() const;
+    Graph(const string& n,size_t nb) : adj(nb), name(n){};
+    const string& getName() const { return name; };
+    size_t getNbVertices() const;
+    size_t getNbEdges() const;
     void addEdge(unsigned int i,unsigned int j);
     void removeEdge(unsigned int i,unsigned int j);
     const list<unsigned int>& getSuccessors(unsigned int i) const;
