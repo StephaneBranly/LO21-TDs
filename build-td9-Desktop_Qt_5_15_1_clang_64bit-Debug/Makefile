@@ -53,9 +53,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../td9/graph.cpp \
-		../td9/main.cpp 
+		../td9/main.cpp \
+		../td9/timing.cpp 
 OBJECTS       = graph.o \
-		main.o
+		main.o \
+		timing.o
 DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/qdevice.pri \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/device_config.prf \
@@ -236,6 +238,7 @@ DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/qt_config.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_post.prf \
+		../td9/.qmake.stash \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/toolchain.prf \
@@ -264,8 +267,11 @@ DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exceptions.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/yacc.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/lex.prf \
-		../td9/td9.pro ../td9/graph.h ../td9/graph.cpp \
-		../td9/main.cpp
+		../td9/td9.pro ../td9/evenement.h \
+		../td9/graph.h \
+		../td9/timing.h ../td9/graph.cpp \
+		../td9/main.cpp \
+		../td9/timing.cpp
 QMAKE_TARGET  = td9
 DESTDIR       = 
 TARGET        = td9.app/Contents/MacOS/td9
@@ -468,6 +474,7 @@ Makefile: ../td9/td9.pro /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/qt_config.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/toolchain.prf \
@@ -681,6 +688,7 @@ Makefile: ../td9/td9.pro /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/qt_config.prf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-clang/qmake.conf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exclusive_builds.prf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/mac/sdk.prf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/toolchain.prf:
@@ -743,8 +751,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../td9/graph.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../td9/graph.cpp ../td9/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../td9/evenement.h ../td9/graph.h ../td9/timing.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../td9/graph.cpp ../td9/main.cpp ../td9/timing.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -754,6 +762,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r td9.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -798,12 +807,16 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
-graph.o: ../td9/graph.cpp 
+graph.o: ../td9/graph.cpp ../td9/graph.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o graph.o ../td9/graph.cpp
 
-main.o: ../td9/main.cpp /Users/stephane_branly/Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
-		/Users/stephane_branly/Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
+main.o: ../td9/main.cpp ../td9/graph.h \
+		../td9/timing.h \
+		../td9/evenement.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../td9/main.cpp
+
+timing.o: ../td9/timing.cpp ../td9/timing.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timing.o ../td9/timing.cpp
 
 ####### Install
 

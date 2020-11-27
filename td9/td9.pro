@@ -10,10 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     graph.cpp \
-    main.cpp
+    main.cpp \
+    timing.cpp
 
 HEADERS += \
-    graph.h
+    evenement.h \
+    graph.h \
+    timing.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
