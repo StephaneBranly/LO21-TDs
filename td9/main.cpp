@@ -1,6 +1,7 @@
 #include "graph.h"
 #include "timing.h"
 #include "evenement.h"
+#include "agenda.h"
 #include<iostream>
 
 using namespace std;
@@ -39,18 +40,17 @@ int main(int argc, char *argv[])
     Evt1j e2(Date(11,6,2013),"Shenzhou");
     Evt1jDur e3(Date(11,6,2013),"Lancement de Longue Marche",Horaire(17,38),Duree(0,10));
     Rdv e4(Date(11,4,2013),"reunion UV",Horaire(17,30),Duree(60),"Intervenants UV","bureau");
-    e1.afficher();
-    e2.afficher();
-    e3.afficher();
-    e4.afficher();
-    Evt1j*pt1= &e1;
-    Evt1j*pt2=&e2;
-    Evt1j*pt3=&e3;
-    Evt1j*pt4=&e4;
-    pt1->afficher();
-    pt2->afficher();
-    pt3->afficher();
-    pt4->afficher();
+//    e1.afficher();
+//    e2.afficher();
+//    e3.afficher();
+//    e4.afficher();
+    Agenda agenda;
+    agenda<<e1;
+    agenda<<e2;
+    agenda<<e3;
+    agenda<<e4;
+    agenda.afficher();
+
 
     return 0;
 }

@@ -19,8 +19,6 @@ TIME::Agenda& TIME::Agenda::operator<<(TIME::Evt& e)
  void TIME::Agenda::afficher(std::ostream& f) const
  {
      for(std::vector<TIME::Evt*>::const_iterator it = tab.begin();it != tab.end(); ++it)
-     {
-         f<<(*it);
-//         it->afficher(f);
-     }
+         f<<(**it);
+
  }

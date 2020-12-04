@@ -9,6 +9,11 @@ class Agenda
 private:
     std::vector<Evt*> tab;
 public:
+
+    class Iterator{
+
+    };
+
     Agenda(const Agenda&) = delete;
     Agenda& operator=(const Agenda&) = delete;
 
