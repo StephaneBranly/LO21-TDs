@@ -51,4 +51,11 @@ namespace TIME{
         }
     };
 }
+
+
+std::ostream& operator<<(std::ostream& f, const TIME::Evt1j& e){
+    e.afficher(f);
+    return f;
+};
+
 #endif
