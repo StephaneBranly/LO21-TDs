@@ -35,21 +35,21 @@ int main(int argc, char *argv[])
 //    std::cout<<"RDV:";
 //    e.afficher();
 
-
+    //    e1.afficher();
+    //    e2.afficher();
+    //    e3.afficher();
+    //    e4.afficher();
     Evt1j e1(Date(4,10,1957),"Spoutnik");
     Evt1j e2(Date(11,6,2013),"Shenzhou");
     Evt1jDur e3(Date(11,6,2013),"Lancement de Longue Marche",Horaire(17,38),Duree(0,10));
     Rdv e4(Date(11,4,2013),"reunion UV",Horaire(17,30),Duree(60),"Intervenants UV","bureau");
-//    e1.afficher();
-//    e2.afficher();
-//    e3.afficher();
-//    e4.afficher();
+
     Agenda agenda;
-    agenda<<e1;
-    agenda<<e2;
-    agenda<<e3;
-    agenda<<e4;
-    agenda.afficher();
+    agenda<<e1 << e2 << e3 << e4;
+//    agenda.afficher();
+
+    for(auto it = agenda.begin(); it!=agenda.end(); ++it)
+        std::cout<<*it;
 
 
     return 0;
