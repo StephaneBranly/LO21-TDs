@@ -52,10 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../td9/graph.cpp \
+SOURCES       = ../td9/agenda.cpp \
+		../td9/graph.cpp \
 		../td9/main.cpp \
 		../td9/timing.cpp 
-OBJECTS       = graph.o \
+OBJECTS       = agenda.o \
+		graph.o \
 		main.o \
 		timing.o
 DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_pre.prf \
@@ -267,9 +269,11 @@ DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exceptions.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/yacc.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/lex.prf \
-		../td9/td9.pro ../td9/evenement.h \
+		../td9/td9.pro ../td9/agenda.h \
+		../td9/evenement.h \
 		../td9/graph.h \
-		../td9/timing.h ../td9/graph.cpp \
+		../td9/timing.h ../td9/agenda.cpp \
+		../td9/graph.cpp \
 		../td9/main.cpp \
 		../td9/timing.cpp
 QMAKE_TARGET  = td9
@@ -751,8 +755,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../td9/evenement.h ../td9/graph.h ../td9/timing.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../td9/graph.cpp ../td9/main.cpp ../td9/timing.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../td9/agenda.h ../td9/evenement.h ../td9/graph.h ../td9/timing.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../td9/agenda.cpp ../td9/graph.cpp ../td9/main.cpp ../td9/timing.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -806,6 +810,11 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean 
 
 ####### Compile
+
+agenda.o: ../td9/agenda.cpp ../td9/agenda.h \
+		../td9/evenement.h \
+		../td9/timing.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o agenda.o ../td9/agenda.cpp
 
 graph.o: ../td9/graph.cpp ../td9/graph.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o graph.o ../td9/graph.cpp

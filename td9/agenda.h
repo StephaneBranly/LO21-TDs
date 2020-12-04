@@ -7,7 +7,7 @@ namespace TIME{
 class Agenda
 {
 private:
-    std::vector<Evt1j> tab;
+    std::vector<Evt1j*> tab;
 public:
     Agenda(const Agenda&) = delete;
     Agenda& operator=(const Agenda&) = delete;

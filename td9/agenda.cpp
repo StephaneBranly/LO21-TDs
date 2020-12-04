@@ -4,17 +4,23 @@
 #include "evenement.h"
 #include <vector>
 
+std::ostream& operator<<(std::ostream& f, const TIME::Evt1j& e){
+    e.afficher(f);  // appelle d'une methode polymorphique
+    return f;
+};
+
 TIME::Agenda& TIME::Agenda::operator<<(TIME::Evt1j& e)
 {
-     tab.push_back(e);
+     tab.push_back(&e);
      return *this;
 }
 
 
  void TIME::Agenda::afficher(std::ostream& f) const
  {
-     for(std::vector<TIME::Evt1j>::const_iterator it = tab.begin();it != tab.end(); ++it)
+     for(std::vector<TIME::Evt1j*>::const_iterator it = tab.begin();it != tab.end(); ++it)
      {
-         it->afficher(f);
+         f<<(*it);
+//         it->afficher(f);
      }
  }
