@@ -7,14 +7,14 @@ namespace TIME{
 class Agenda
 {
 private:
-    std::vector<Evt1j*> tab;
+    std::vector<Evt*> tab;
 public:
     Agenda(const Agenda&) = delete;
     Agenda& operator=(const Agenda&) = delete;
 
     Agenda() = default;
     virtual ~Agenda() = default;
-    Agenda& operator<<(Evt1j& e);
+    Agenda& operator<<(Evt& e);
     void afficher(std::ostream& f=std::cout) const;
 };
 }
