@@ -53,10 +53,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../td9/agenda.cpp \
+		../td9/evenement.cpp \
 		../td9/graph.cpp \
 		../td9/main.cpp \
 		../td9/timing.cpp 
 OBJECTS       = agenda.o \
+		evenement.o \
 		graph.o \
 		main.o \
 		timing.o
@@ -240,6 +242,7 @@ DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/qt_config.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_post.prf \
+		../td9/.qmake.stash \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/toolchain.prf \
@@ -272,6 +275,7 @@ DIST          = /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_
 		../td9/evenement.h \
 		../td9/graph.h \
 		../td9/timing.h ../td9/agenda.cpp \
+		../td9/evenement.cpp \
 		../td9/graph.cpp \
 		../td9/main.cpp \
 		../td9/timing.cpp
@@ -477,6 +481,7 @@ Makefile: ../td9/td9.pro /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/qt_config.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/toolchain.prf \
@@ -690,6 +695,7 @@ Makefile: ../td9/td9.pro /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/qt_config.prf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/macx-clang/qmake.conf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/exclusive_builds.prf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/mac/sdk.prf:
 /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/toolchain.prf:
@@ -753,7 +759,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/stephane_branly/Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../td9/agenda.h ../td9/evenement.h ../td9/graph.h ../td9/timing.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../td9/agenda.cpp ../td9/graph.cpp ../td9/main.cpp ../td9/timing.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../td9/agenda.cpp ../td9/evenement.cpp ../td9/graph.cpp ../td9/main.cpp ../td9/timing.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -763,6 +769,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r td9.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -811,6 +818,10 @@ agenda.o: ../td9/agenda.cpp ../td9/agenda.h \
 		../td9/evenement.h \
 		../td9/timing.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o agenda.o ../td9/agenda.cpp
+
+evenement.o: ../td9/evenement.cpp ../td9/evenement.h \
+		../td9/timing.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o evenement.o ../td9/evenement.cpp
 
 graph.o: ../td9/graph.cpp ../td9/graph.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o graph.o ../td9/graph.cpp

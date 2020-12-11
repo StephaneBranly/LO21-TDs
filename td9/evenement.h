@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include"timing.h"
-#include <strstream>
+#include <sstream>
 
 namespace TIME{
     class Evt{
@@ -13,8 +13,8 @@ namespace TIME{
         Evt(const std::string& s) : sujet(s){};
         virtual ~Evt(){}
         const std::string& getDescription() const{ return sujet; }
-        virtual void afficher(std::ostream& f= std::cout) const = 0;
-//        string Evt::toString()const;
+        void afficher(std::ostream& f= std::cout) const { f<<toString(); };
+        virtual std::string toString() const = 0;
     };
 
 
@@ -26,8 +26,10 @@ namespace TIME{
         Evt1j(const Date& d,const std::string& s):Evt(s),date(d){}
         ~Evt1j(){}
         const Date& getDate() const {return date; }
-        void afficher(std::ostream& f= std::cout) const{
-            f<<"Date="<<date<<" sujet="<<getDescription()<<"\n";
+        std::string toString()const{
+            std::stringstream f;
+            f<<"Date="<<date<<"  sujet="+getDescription()<<"\n";
+            return f.str();
         }
     };
 
@@ -41,8 +43,10 @@ namespace TIME{
         ~EvtPj(){}
         const Date& getDateDebut() const {return debut; }
         const Date& getDateFin() const {return fin; }
-        void afficher(std::ostream& f= std::cout) const{
+        std::string toString()const{
+            std::stringstream f;
             f<<"Debut="<<debut<<", fin="<<fin<<" | sujet="<<getDescription()<<"\n";
+            return f.str();
         }
     };
 
@@ -56,8 +60,10 @@ namespace TIME{
         ~Evt1jDur(){ }
         const Horaire& getHoraire() const { return debut; }
         const Duree& getDuree() const { return duree; }
-        void afficher(std::ostream& f= std::cout) const {
+        std::string toString()const{
+            std::stringstream f;
             f<<"Date:"<<getDate()<<" a "<<debut<<" duree="<<duree<<"  | sujet: "<<getDescription()<<"\n";
+            return f.str();
         }
     };
 
@@ -73,14 +79,16 @@ namespace TIME{
         ~Rdv(){}
         const std::string& getPersonnes() const { return personnes ;}
         const std::string& getLieu() const { return lieu ; }
-        void afficher(std::ostream& f= std::cout) const {
+        std::string toString()const{
+            std::stringstream f;
             f<<"Date:"<<getDate()<<" a "<<getHoraire()<<" duree="<<getDuree()<<" ("<<lieu<<") | sujet: "<<getDescription()<<"   Personnes presentes :"<<personnes<<"\n";
+            return f.str();
         }
     };
 
 
     Date getDate(const TIME::Evt& e);
-    bool operator<(const Evt& e1, const Evt& e2);
+//    bool operator<(const Evt& e1, const Evt& e2);
 }
 
 
