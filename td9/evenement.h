@@ -3,6 +3,7 @@
 #include<iostream>
 #include<string>
 #include"timing.h"
+#include <strstream>
 
 namespace TIME{
     class Evt{
@@ -13,6 +14,7 @@ namespace TIME{
         virtual ~Evt(){}
         const std::string& getDescription() const{ return sujet; }
         virtual void afficher(std::ostream& f= std::cout) const = 0;
+//        string Evt::toString()const;
     };
 
 
@@ -75,6 +77,10 @@ namespace TIME{
             f<<"Date:"<<getDate()<<" a "<<getHoraire()<<" duree="<<getDuree()<<" ("<<lieu<<") | sujet: "<<getDescription()<<"   Personnes presentes :"<<personnes<<"\n";
         }
     };
+
+
+    Date getDate(const TIME::Evt& e);
+    bool operator<(const Evt& e1, const Evt& e2);
 }
 
 

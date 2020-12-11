@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     agenda.cpp \
+    evenement.cpp \
     graph.cpp \
     main.cpp \
     timing.cpp

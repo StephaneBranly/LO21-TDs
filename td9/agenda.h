@@ -24,10 +24,18 @@ public:
         bool operator==(const iterator it) const { return e == it.e; }
         Evt& operator*(){ return **e; }
     };
+    class const_iterator : public std::vector<Evt*>::const_iterator
+    {
+        friend class Agenda;
+        const_iterator (std::vector<Evt*>::const_iterator it) : std::vector<Evt*>::const_iterator(it){}
+        Evt& operator*() const {return *std::vector<Evt*>::const_iterator::operator*();}
+    };
 
     iterator begin(){ return iterator(tab.begin()); }
     iterator end(){ return iterator(tab.end()); }
 
+    const_iterator const_begin() { return const_iterator(tab.begin());}
+    const_iterator const_end() { return const_iterator(tab.end());}
     Agenda(const Agenda&) = delete;
     Agenda& operator=(const Agenda&) = delete;
 
