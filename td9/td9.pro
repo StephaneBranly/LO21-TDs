@@ -12,6 +12,7 @@ SOURCES += \
     agenda.cpp \
     evenement.cpp \
     graph.cpp \
+    log.cpp \
     main.cpp \
     timing.cpp
 
@@ -19,6 +20,7 @@ HEADERS += \
     agenda.h \
     evenement.h \
     graph.h \
+    log.h \
     timing.h
 
 # Default rules for deployment.

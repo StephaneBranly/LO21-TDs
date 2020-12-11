@@ -88,7 +88,7 @@ namespace TIME{
 
 
     Date getDate(const TIME::Evt& e);
-//    bool operator<(const Evt& e1, const Evt& e2);
+    bool operator<(const TIME::Evt& e1, const TIME::Evt& e2);
 }
 
 
