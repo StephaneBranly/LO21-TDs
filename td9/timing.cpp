@@ -15,7 +15,7 @@ void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a){
 	if (a>=0&&a<=3000) annee=a; else throw TimeException("erreur: annee invalide");
 	if (m>=1&&m<=12) mois=m; else throw TimeException("erreur: mois invalide");
 	switch(m){
-	case 1: case 3: case 5: case 7: case 8: case 10: case 12: if (j>=1 && j<=31) jour=j; else throw TimeException("erreur: jour invalide"); break;
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12: if (j>=1 && j<=31) jour=j; else throw TimeException("erreur: jour invalide"); break;
 	case 4: case 6: case 9: case 11: if (j>=1 && j<=30) jour=j; else throw TimeException("erreur: jour invalide"); break;
 	case 2: if (j>=1 && (j<=29 || (j==30 && a%4==0))) jour=j; else throw TimeException("erreur: jour invalide"); break;
 	}
