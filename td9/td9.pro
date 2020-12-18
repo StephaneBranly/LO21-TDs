@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     agenda.cpp \
+    container.cpp \
     evenement.cpp \
     graph.cpp \
     log.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     agenda.h \
+    container.h \
     evenement.h \
     graph.h \
     log.h \
