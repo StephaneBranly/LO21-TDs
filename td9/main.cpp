@@ -3,6 +3,8 @@
 #include "evenement.h"
 #include "agenda.h"
 #include "container.h"
+
+#include <list>
 #include<iostream>
 
 using namespace std;
@@ -58,6 +60,25 @@ int main(int argc, char *argv[])
     for(unsigned int i = 0; i<monVecteur.size();i++)
     {
         cout << monVecteur[i] << endl;
+    }
+    cout << "pile 1" << endl;
+    TD::Stack1<int, list<int>> pile;
+    pile.push(4);
+    pile.push(6);
+    while(!pile.empty())
+    {
+        cout << pile.top() << endl;
+        pile.pop();
+    }
+
+    cout << "pile 2" << endl;
+    TD::Stack1<int, list<int>> pile2;
+    pile2.push(2);
+    pile2.push(1);
+    while(!pile2.empty())
+    {
+        cout << pile2.top() << endl;
+        pile2.pop();
     }
     return 0;
 }

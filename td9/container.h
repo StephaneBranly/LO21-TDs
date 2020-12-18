@@ -56,6 +56,35 @@ public:
     const T & operator[](unsigned int i) const { return tab[i]; };
 };
 
+
+// Adaptateur de classe
+template<class T, class CONT=Vector<T>>
+class Stack1 : private CONT {
+public:
+    Stack1() : CONT(0){};
+    using CONT::empty;
+    void push(const T& x) { CONT::push_back(x); };
+    void pop() { CONT::pop_back(); };
+    using CONT::size;
+    T& top() { return CONT::back(); };
+    const T& top() const { return CONT::back(); };
+    using CONT::clear;
+};
+
+// Adaptateur d'objet
+template<class T, class CONT=Vector<T>>
+class Stack2{
+    CONT cont;
+public:
+    Stack2(): cont(0){};
+    bool empty() const { return cont.empty(); };
+    void push(const T& x) { cont.push_back(x); };
+    void pop() { cont.pop_back(); };
+    unsigned int size() const { return cont.size(); };
+    T& top() { return cont.front(); };
+    const T& top() const { return cont.front(); };
+    void clear() { cont.clear(); };
+};
 }
 
 
