@@ -221,3 +221,27 @@ template<class T> TD::Vector<T> & TD::Vector<T>::operator=(const TD::Vector<T> &
     return *this;
 }
 #endif // CONTAINER_H
+
+
+
+template<class IT> IT element_minimum(IT it1, IT it2)
+{
+    IT min = it1;
+    while(it1!=it2)
+    {
+        if(*it1<*min) min=it1;
+        ++it1;
+    }
+    return min;
+}
+
+template<class IT, class OP> IT element_minimum(IT it1, IT it2, OP op )
+{
+    IT min = it1;
+    while(it1!=it2)
+    {
+        if(op(*it1,*min)) min=it1;
+        ++it1;
+    }
+    return min;
+}
