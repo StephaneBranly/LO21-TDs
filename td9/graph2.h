@@ -26,7 +26,7 @@ public:
     void removeEdge(const Vertex& i,const Vertex& j)
     {
         auto it = adj.find(i);
-        if (it==adj.end() || it->erase(j)==0) throw "erreur";
+        if (it==adj.end() || it->second.erase(j)==0) throw "erreur";
     }
 
     void removeVertex(const Vertex& i);
