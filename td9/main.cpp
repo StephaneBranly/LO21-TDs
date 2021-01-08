@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "graph2.h"
 #include "timing.h"
 #include "evenement.h"
 #include "agenda.h"
