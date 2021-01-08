@@ -41,6 +41,8 @@ class Vector : public Container<T>
 {
     T * tab;
     unsigned int cap; // nombre maximum d'elements que l'on peut stocker
+
+
 public:
     Vector(unsigned int n=0, const T & x = T());
     ~Vector(){ delete[] tab; };
@@ -54,6 +56,20 @@ public:
     void clear();
     T & operator[](unsigned int i){ return tab[i]; };
     const T & operator[](unsigned int i) const { return tab[i]; };
+
+    class iterator{
+        T* current;
+        iterator(T* init): current(init){};
+        friend class Vector<T>;
+    public:
+
+        T& operator*() const { return *current; };
+        iterator& operator++(){ current++; return *this; };
+        bool operator==(iterator it) const { return *it==current; };
+        bool operator!=(iterator it) const { return *it!=current; };
+    };
+    iterator& begin(){ return iterator(tab[0]); }
+    iterator& end(){ return iterator(tab[this->size()]); }
 };
 
 
@@ -69,6 +85,11 @@ public:
     T& top() { return CONT::back(); };
     const T& top() const { return CONT::back(); };
     using CONT::clear;
+
+    // iterator est un type qui depend d'un parametre de type
+    using iterator = typename CONT::iterator;
+    using CONT::begin;
+    using CONT::end;
 };
 
 // Adaptateur d'objet
@@ -84,6 +105,11 @@ public:
     T& top() { return cont.front(); };
     const T& top() const { return cont.front(); };
     void clear() { cont.clear(); };
+
+    // iterator est un type qui depend d'un parametre de type
+    using iterator = typename CONT::iterator;
+    iterator begin() { return cont.begin(); }
+    iterator end() { return cont.end(); }
 };
 }
 
