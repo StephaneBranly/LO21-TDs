@@ -2,6 +2,9 @@
 #include "timing.h"
 #include "evenement.h"
 #include "agenda.h"
+#include "container.h"
+
+#include <list>
 #include<iostream>
 
 using namespace std;
@@ -39,18 +42,43 @@ int main(int argc, char *argv[])
     //    e2.afficher();
     //    e3.afficher();
     //    e4.afficher();
-    Evt1j e1(Date(4,10,1957),"Spoutnik");
-    Evt1j e2(Date(11,6,2013),"Shenzhou");
-    Evt1jDur e3(Date(11,6,2013),"Lancement de Longue Marche",Horaire(17,38),Duree(0,10));
-    Rdv e4(Date(11,4,2013),"reunion UV",Horaire(17,30),Duree(60),"Intervenants UV","bureau");
+//    Evt1j e1(Date(4,10,1957),"Spoutnik");
+//    Evt1j e2(Date(11,6,2013),"Shenzhou");
+//    Evt1jDur e3(Date(11,6,2013),"Lancement de Longue Marche",Horaire(17,38),Duree(0,10));
+//    Rdv e4(Date(11,4,2013),"reunion UV",Horaire(17,30),Duree(60),"Intervenants UV","bureau");
 
-    Agenda agenda;
-    agenda<<e1 << e2 << e3 << e4;
-//    agenda.afficher();
+//    Agenda agenda;
+//    agenda<<e1 << e2 << e3 << e4;
+////    agenda.afficher();
 
-    for(auto it = agenda.begin(); it!=agenda.end(); ++it)
-        std::cout<<*it;
+//    for(auto it = agenda.begin(); it!=agenda.end(); ++it)
+//        std::cout<<*it;
 
+    TD::Vector<int> monVecteur(4,1);
+    monVecteur[2]=6;
+    using namespace std;
+    for(unsigned int i = 0; i<monVecteur.size();i++)
+    {
+        cout << monVecteur[i] << endl;
+    }
+    cout << "pile 1" << endl;
+    TD::Stack1<int, list<int>> pile;
+    pile.push(4);
+    pile.push(6);
+    while(!pile.empty())
+    {
+        cout << pile.top() << endl;
+        pile.pop();
+    }
 
+    cout << "pile 2" << endl;
+    TD::Stack1<int, list<int>> pile2;
+    pile2.push(2);
+    pile2.push(1);
+    while(!pile2.empty())
+    {
+        cout << pile2.top() << endl;
+        pile2.pop();
+    }
     return 0;
 }
