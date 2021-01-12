@@ -13,6 +13,7 @@ SOURCES += \
     container.cpp \
     evenement.cpp \
     graph.cpp \
+    graph2.cpp \
     log.cpp \
     main.cpp \
     timing.cpp
@@ -22,6 +23,7 @@ HEADERS += \
     container.h \
     evenement.h \
     graph.h \
+    graph2.h \
     log.h \
     timing.h
 

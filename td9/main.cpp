@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "graph2.h"
 #include "timing.h"
 #include "evenement.h"
 #include "agenda.h"
@@ -64,6 +65,8 @@ int main(int argc, char *argv[])
     cout << "pile 1" << endl;
     TD::Stack1<int, list<int>> pile;
     pile.push(4);
+    pile.push(2);
+    pile.push(1);
     pile.push(6);
     while(!pile.empty())
     {
@@ -71,14 +74,14 @@ int main(int argc, char *argv[])
         pile.pop();
     }
 
-    cout << "pile 2" << endl;
-    TD::Stack1<int, list<int>> pile2;
-    pile2.push(2);
-    pile2.push(1);
-    while(!pile2.empty())
-    {
-        cout << pile2.top() << endl;
-        pile2.pop();
-    }
+    std::list<int> l;
+    l.push_back(2);
+    l.push_back(5);
+    l.push_back(6);
+    l.push_back(2);
+    l.push_back(5);
+    l.push_back(1);
+//    auto min = element_minimum(l.begin(),l.end());
+
     return 0;
 }
